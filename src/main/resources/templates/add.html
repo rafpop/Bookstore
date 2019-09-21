@@ -6,44 +6,44 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 
     <title>Add book page</title>
 
     <style>
-
-        body {
-            color: #333;
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            font-size: 14px;
-            line-height: 1.42857;
-            background-color: #ffffab;
-            text-align: center;
+        * {
+            box-sizing: border-box;
+            align-items: center;
             justify-items: center;
         }
+        body {
+            background-color: palegreen;
+            font-family: 'Chilanka', cursive;
+        }
 
-        h1 {
+        table {
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        th, td, tr {
+            padding: 10px;
             text-align: center;
-            color: #009606;
+        }
+        
+        .spacer-between {
+            padding-top: 20px;
+            padding-bottom: 20px
         }
 
-        input {
-            caret-shape: underscore;
-            caret-color: deepskyblue;
+        #spacer-top {
+            padding-top: 40px;
+            padding-bottom: 40px
         }
-
-        input:focus, textarea:focus {
-            background-color: #f8ffac;
-
-        }
-
-        form:invalid {
-            color: red;
-            caret-shape: underscore;
-        }
-
     </style>
 
-    <SCRIPT>
+    <script>
 
     function error(text) {
 
@@ -70,12 +70,23 @@
     }
     return !errorfound;
     }
-    </SCRIPT>
+    </script>
 </head>
 <body>
 
-<h1>FORM TO ADD NEW BOOK INTO DATABASE</h1>
+<div class="row" id="spacer-top"></div>
+<div class="row">
+    <div class="col" style="background-color: #ffffab"></div>
+    <div class="col" style="text-align: center">
+        <h2>Form to add new book into database</h2>
+    </div>
+    <div class="col" style="background-color: #ffffab"></div>
+</div>
 
+<div class="row spacer-between"></div>
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
 <form th:method="post" th:action="@{/add}" th:object="${book}" onsubmit="return validate()">
     <table>
         <tr>
@@ -91,10 +102,15 @@
             <td>ISBN:</td>
             <td> <input type="text" name="isbn" th:field="${book.isbn}"> </td>
         </tr>
-        <td colspan="4" align="center">
-            <a href="/index"> <input type="submit" value="Save book" /> </a>
+        <td colspan="2">
+        </br>
+            <input class="btn btn-primary" type="submit" value="Save book" th:href="@{/index}">
         </td>
     </table>
 </form>
+        <div class="col-2"></div>
+</div>
+</div>
 </body>
 </html>
+

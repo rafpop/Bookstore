@@ -23,12 +23,12 @@ public class AddController {
         this.bookService = Objects.requireNonNull(bookService, "Book Service must be defined.");
     }
 
-    @GetMapping
+    @GetMapping("/add")
     public ModelAndView registerForm() {
         return new ModelAndView("add").addObject("book", new Book());
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public ModelAndView save(@ModelAttribute @Valid Book book, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ModelAndView("add", bindingResult.getModel())
