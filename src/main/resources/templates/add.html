@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <title>Add book page</title>
+
+    <style>
+
+        body {
+            color: #333;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.42857;
+            background-color: #ffffab;
+            text-align: center;
+            justify-items: center;
+        }
+
+        h1 {
+            text-align: center;
+            color: #009606;
+        }
+
+        input {
+            caret-shape: underscore;
+            caret-color: deepskyblue;
+        }
+
+        input:focus, textarea:focus {
+            background-color: #f8ffac;
+
+        }
+
+        form:invalid {
+            color: red;
+            caret-shape: underscore;
+        }
+
+    </style>
+
+    <SCRIPT>
+
+    function error(text) {
+
+    if (errorfound) return;
+    window.alert(text);
+    errorfound = true;
+
+    }
+
+    function validate() {
+    errorfound = false;
+    var mistakes = "";
+
+    with (document.forms[0]) {
+
+        if (author.value == "")
+            mistakes += "You must put name and surname of author. \n";
+        if (title.value == "")
+            mistakes += "You must put title of book.\n";
+        if (isbn.value == "")
+            mistakes += "You must put ISBN of book.";
+        if (mistakes!= "")
+            error(mistakes);
+    }
+    return !errorfound;
+    }
+    </SCRIPT>
+</head>
+<body>
+
+<h1>FORM TO ADD NEW BOOK INTO DATABASE</h1>
+
+<form th:method="post" th:action="@{/add}" th:object="${book}" onsubmit="return validate()">
+    <table>
+        <tr>
+            <td>Author:</td>
+            <td> <input type="text" name="author" th:field="${book.author}">
+            <td th:if="${#fields.hasErrors('author')}" th:errors="${book.author}">Author error</td>
+        </tr>
+        <tr>
+            <td>Title:</td>
+            <td> <input type="text" name="title" th:field="${book.title}"> </td>
+        </tr>
+        <tr>
+            <td>ISBN:</td>
+            <td> <input type="text" name="isbn" th:field="${book.isbn}"> </td>
+        </tr>
+        <td colspan="4" align="center">
+            <a href="/index"> <input type="submit" value="Save book" /> </a>
+        </td>
+    </table>
+</form>
+</body>
+</html>

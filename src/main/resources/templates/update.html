@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <title>Update book page</title>
+
+    <style>
+
+        body {
+
+            background-color: #99ff96;
+        }
+
+        body {
+            color: #333;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.42857;
+        }
+
+        h1 {
+            text-align: center;
+            color: #009606;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<h2>FORM TO UPDATE BOOK</h2>
+
+<form th:method="post" th:action="@{/updateBook/{id}(id=${books.id})}" th:object="${books}">
+    <table>
+        <tr>
+            <td>Author:</td>
+            <td> <input type="text" th:field="${books.author}"> </td>
+        </tr>
+        <tr>
+            <td>Title:</td>
+            <td> <input type="text" th:field="${books.title}"> </td>
+        </tr>
+        <tr>
+            <td>ISBN:</td>
+            <td> <input type="text" th:field="${books.isbn}"> </td>
+        </tr>
+        <td colspan="2" align="center">
+            <a href="/index"><input type="submit" value="Update book" /></a>
+        </td>
+    </table>
+</form>
+</body>
+</html>
