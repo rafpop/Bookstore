@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Add book page</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            align-items: center;
+            justify-items: center;
+        }
+        body {
+            background-color: palegreen;
+            font-family: 'Chilanka', cursive;
+        }
+
+        table {
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        th, td, tr {
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .spacer-between {
+            padding-top: 20px;
+            padding-bottom: 20px
+        }
+
+        #spacer-top {
+            padding-top: 40px;
+            padding-bottom: 40px
+        }
+    </style>
+
+    <script>
+
+    function error(text) {
+
+    if (errorfound) return;
+    window.alert(text);
+    errorfound = true;
+
+    }
+
+    function validate() {
+    errorfound = false;
+    var mistakes = "";
+
+    with (document.forms[0]) {
+
+        if (author.value == "")
+            mistakes += "You must put name and surname of author. \n";
+        if (title.value == "")
+            mistakes += "You must put title of book.\n";
+        if (isbn.value == "")
+            mistakes += "You must put ISBN of book.";
+        if (mistakes!= "")
+            error(mistakes);
+    }
+    return !errorfound;
+    }
+    </script>
+</head>
+<body>
+
+<div class="row" id="spacer-top"></div>
+<div class="row">
+    <div class="col" style="background-color: #ffffab"></div>
+    <div class="col" style="text-align: center">
+        <h2>Form to add new book into database</h2>
+    </div>
+    <div class="col" style="background-color: #ffffab"></div>
+</div>
+
+<div class="row spacer-between"></div>
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+<form th:method="post" th:action="@{/add}" th:object="${book}" onsubmit="return validate()">
+    <table>
+        <tr>
+            <td>Author:</td>
+            <td> <input type="text" name="author" th:field="${book.author}">
+            <td th:if="${#fields.hasErrors('author')}" th:errors="${book.author}">Author error</td>
+        </tr>
+        <tr>
+            <td>Title:</td>
+            <td> <input type="text" name="title" th:field="${book.title}"> </td>
+        </tr>
+        <tr>
+            <td>ISBN:</td>
+            <td> <input type="text" name="isbn" th:field="${book.isbn}"> </td>
+        </tr>
+        <td colspan="2">
+        </br>
+            <input class="btn btn-primary" type="submit" value="Save book" th:href="@{/index}">
+        </td>
+    </table>
+</form>
+        <div class="col-2"></div>
+</div>
+</div>
+</body>
+</html>
+

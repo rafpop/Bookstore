@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css" rel="stylesheet">
+
+    <title>Bookstore</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            align-items: center;
+            justify-items: center;
+        }
+        body {
+            background-color: palegreen;
+            font-family: 'Chilanka', cursive;
+        }
+
+        table {
+            border: 2px solid black;
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        th, td, tr {
+            border: 1px dotted darkgreen;
+            padding: 10px;
+            text-align: center;
+        }
+
+        tr:nth-child(odd) {
+            background: #7aee86;
+        }
+
+        .spacer-between {
+            padding-top: 20px;
+            padding-bottom: 20px
+        }
+
+        #spacer-top {
+            padding-top: 40px;
+            padding-bottom: 40px
+        }
+    </style>
+
+</head>
+<body>
+<div class="row" id="spacer-top"></div>
+<div class="row">
+    <div class="col" style="background-color: #ffffab"></div>
+    <div class="col" style="text-align: center">
+        <h2>Bookstore</h2>
+    </div>
+    <div class="col" style="background-color: #ffffab"></div>
+</div>
+<div class="row spacer-between"></div>
+<div class ="row">
+    <div class="col-5"></div>
+    <div class="col-2" style="text-align: center">
+        <a class="btn btn-primary" th:href="@{/add}" role="button">Add new book</a>
+    </div>
+    <div class="col-5"></div>
+</div>
+<div class="row spacer-between"></div>
+<div class="row">
+    <div class="col-12" th:if="${books!=null and !books.empty}">
+        <table>
+            <tr style="background: limegreen">
+                <th>ID:</th>
+                <th>Author:</th>
+                <th>Title:</th>
+                <th>ISBN:</th>
+                <th>What do you want to do?</th>
+            </tr>
+            <tr th:each="book : ${books}">
+                <td th:text="${book.id}"></td>
+                <td th:text="${book.author}"></td>
+                <td th:text="${book.title}"></td>
+                <td th:text="${book.isbn}"></td>
+                <td>
+                    <a th:href="@{/updateBook/{id}(id=${book.id})}"> <i class="fas fa-edit"></i> </a>
+                    <a th:href="@{/deleteBook/{id}(id=${book.id})}"> <i class="fas fa-trash-alt"></i> </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-12" th:unless="${books!=null and !books.isEmpty()}">
+        <H6 style="text-align: center">No records!</H6>
+    </div>
+</div>
+
+</body>
+</html>
